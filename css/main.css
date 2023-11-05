@@ -2,12 +2,257 @@ body{
   font-family: tuitype-light,Helvetica,sans-serif;
   letter-spacing: 0;
 }
-.section__cards{
+*{
+  box-sizing: border-box;
+}
+p{
+  margin: 0;
+}
+h4{
+  margin: 0;
+}
+.container{
+  padding:0 10px;
+  margin:0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+.container.flex-mode{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.section-cards{
+  background: #E2F3FE;
+  padding: 16px 0;
+}
+
+.section-cards #date__select{
+  margin:0 auto 30px;
+  display: block;
+}
+.game-wrapper{
+  max-width: 698px;
+  width: 100%;
+  margin:0 auto;
+}
+
+.memory-game {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-bottom: 16px;
+}
+
+.memory-card {
+  position: relative;
+  transition: all .5s;
+  transform-style: preserve-3d;
+  transform: scale(1);
+  width: 100%;
+  min-height: 172px;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+
+.memory-card.flip {
+  transform: rotateY(180deg);
+}
+
+.memory-card:active {
+  transform: scale(0.97);
+  transition: transform .2s;
+}
+
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.front-face {
+  transform: rotateY(180deg);
 }
 
 
 
-@media only screen and (max-width: 767px) {
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .container {
+    width: 960px;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+.modal-fader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 99998;
+  background-color: rgba(232, 232, 232, 0);
+  backdrop-filter: blur(9px);
+  filter: brightness(115%);
+  opacity: 0.53;
+}
+.modal-button{
+  padding: 12px 16px;
+  color: #ffffff;
+  background: #D40E14;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+.modal-button:hover{
+  opacity: 0.8;
+}
+.button-small{
+  min-width: 120px;
+}
+.modal-text{
+  color: #092A5E;
+  font-size: 20px;
+  line-height: 23px;
+  margin-bottom: 16px;
+}
+.modal-fader.active {
+  display: block;
+}
+.modal-window {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  border-radius: 4px;
+}
+.modal-finish{
+  padding: 32px;
+  text-align: center;
+  max-width: 297px;
+  width: 100%;
+  background: url("../images/snowflakes-background.jpg") center no-repeat;
+}
+.modal-window.active {
+  display: block;
+}
+.button-close{
+  position: absolute;
+  right: 15px;
+  top:15px;
+  cursor: pointer;
+}
+.decor-wrapper{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  background: url("../images/snowflakes-background.jpg") center no-repeat;
+  margin-bottom: 10px;
+  padding: 15px 0 10px;
+}
+.image-wrapper {
+  position: relative;
+}
+.image-wrapper img{
+  width: 100%;
+}
+.image-wrapper img:not(.decor,.close){
+  border-radius: 3px 3px 0 0;
+}
+.image-wrapper .decor{
+  bottom: -18px;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+.modal-info{
+  max-width: 355px;
+  width: 100%;
+  background: #ffffff;
+}
+.modal-info p{
+  color: #092A5E;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: left;
+  font-weight: 400;
+}
+.modal-info p + p{
+  padding-top: 10px;
+}
+.info-wrapper{
+  max-width: 297px;
+  width: 100%;
+  padding: 0 10px 35px;
+}
+.button-img{
+  width: 17px;
+  margin-right: 10px;
+}
+.game-info{
+  display: flex;
+  max-width: 698px;
+  width: 100%;
+  margin:0 auto 16px;
+  align-items: flex-start;
+}
+.game-info img{
+  min-width: 29px;
+  width: 29px;
+  margin-right: 10px;
+}
+.game-info p{
+  color: #092A5E;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: left;
+  font-weight: 400;
+}
+.conditions{
+  padding: 16px 0;
+  background: #ffffff;
+}
 
+.bold-title{
+  font-size: 16px;
+  line-height: 18px;
+  text-align: left;
+  font-weight: 700;
+  color: #092A5E;
+}
+.bold-title.margin-mode{
+  margin-bottom: 16px;
+}
+.conditions-list{
+  color: #092A5E;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: left;
+  font-weight: 400;
+  margin-bottom: 16px;
+  margin-top: 0;
+  padding-left: 16px;
 }

@@ -24,9 +24,135 @@
 </head>
 
 <body>
-  <section class="section__cards">
-    <img src="images\img_strand.jpg" data-id="0" class="zoom__img" style="display: block" alt="photo" >
+  <section class="section-cards">
+    <div class="container flex-mode">
+      <select id="date__select">
+        <option value='12.01.'>12.01.2023</option>
+        <option value='12.02.'>12.02.2023</option>
+        <option value='12.03.'>12.03.2023</option>
+        <option value='12.04.'>12.04.2023</option>
+        <option value='12.05.'>12.05.2023</option>
+        <option value='12.06.'>12.06.2023</option>
+        <option value='12.07.'>12.07.2023</option>
+        <option value='12.08.'>12.08.2023</option>
+        <option value='12.09.'>12.09.2023</option>
+        <option value='12.10.'>12.10.2023</option>
+        <option value='12.11.'>12.11.2023</option>
+        <option value='12.12.'>12.12.2023</option>
+        <option value='12.13.'>12.13.2023</option>
+        <option value='12.14.'>12.14.2023</option>
+        <option value='12.15.'>12.15.2023</option>
+        <option value='12.16.'>12.16.2023</option>
+        <option value='12.17.'>12.17.2023</option>
+        <option value='12.18.'>12.18.2023</option>
+        <option value='12.19.'>12.19.2023</option>
+        <option value='12.20.'>12.20.2023</option>
+        <option value='12.21.'>12.21.2023</option>
+        <option value='12.22.'>12.22.2023</option>
+        <option value='12.23.'>12.23.2023</option>
+        <option value='12.24.'>12.24.2023</option>
+      </select>
+      <div class="game-info">
+        <img class="button-img" src="./images/icon-info-i.svg" alt="backface-image">
+        <p>Erhöhe Deine Gewinnchancen enorm, indem Du täglich am Weihnachts-Memory teilnimmst und Deinen Namen an den Lostopf übermittelst.</p>
+      </div>
+      <div class="game-wrapper">
+        <div class="memory-game">
+          <div class="memory-card" data-name="01">
+            <img class="front-face" src="./images/12.01.-01.png" alt="front-face">
+            <img class="back-face" src="./images/tui-backface.png" alt="backface-image">
+          </div>
+
+          <div class="memory-card" data-name="01">
+            <img class="front-face" src="./images/12.01.-01.png" alt="front-face">
+            <img class="back-face" src="./images/tui-backface.png" alt="backface-image">
+          </div>
+
+          <div class="memory-card" data-name="02">
+            <img class="front-face" src="./images/12.01.-02.png" alt="front-face">
+            <img class="back-face" src="./images/tui-backface.png" alt="backface-image">
+          </div>
+
+          <div class="memory-card" data-name="02">
+            <img class="front-face" src="./images/12.01.-02.png" alt="front-face">
+            <img class="back-face" src="./images/tui-backface.png" alt="backface-image">
+          </div>
+
+          <div class="memory-card" data-name="03">
+            <img class="front-face" src="./images/12.01.-03.png" alt="front-face">
+            <img class="back-face" src="./images/tui-backface.png" alt="backface-image">
+          </div>
+
+          <div class="memory-card" data-name="03">
+            <img class="front-face" src="./images/12.01.-03.png" alt="front-face">
+            <img class="back-face" src="./images/tui-backface.png" alt="backface-image">
+          </div>
+
+        </div>
+      </div>
+      <button class="modal-button"><img class="button-img" src="./images/icon-neustart.svg" alt="image">Memory neustarten</button>
+    </div>
   </section>
+
+  <section class="conditions">
+    <div class="container">
+      <p class="bold-title margin-mode">
+        Spielanleitung:
+      </p>
+      <p class="bold-title">
+        Wann werden die Gewinne verlost? Und was gibt es zu gewinnen?
+      </p>
+      <ol class="conditions-list">
+        <li>
+          1. Advent (27.11): 250 € Wertgutschein
+        </li>
+        <li>
+          2. Advent (4.12.): 250 € Wertgutschein
+        </li>
+        <li>
+          Nikolaus (6.12.): 250 € Wertgutschein
+        </li>
+        <li>
+          3. Advent (11.12.): 250 € Wertgutschein
+        </li>
+        <li>
+          4. Advent (18.11.): 250 € Wertgutschein
+        </li>
+        <li>
+          Heiligabend (24.12.): 500 € Wertgutschein
+        </li>
+      </ol>
+      <p class="bold-title">
+        Wie nehme ich am Weihnachts-Memory teil?
+      </p>
+      <p class="text">In den Tagen vor den jeweiligen Ausschüttungstagen kannst Du täglich an dem Weihnachts-Memory teilnehmen und deinen Namen übermitteln. Die tägliche Teilnahme erhöht Deine Gewinnchancen. Die Übermittlung der Anmeldedaten ist täglich 1x möglich.</p>
+
+    </div>
+  </section>
+  <div id="modal-1" class="modal-finish modal-window">
+    <p class="modal-text">Herzlichen Glückwunsch! Du hast alle Memory-Karten richtig aufgedeckt</p>
+    <button class="modal-button button-small open-modal" data-target="modal-2">Weiter</button>
+  </div>
+  <div id="modal-2" class="modal-info modal-window">
+    <div class="image-wrapper">
+      <img src="./images/12.01.-03.png" alt="image">
+      <img class="decor" src="./images/weihnachtsleiste.svg" alt="image">
+      <div class="button-close modal-hide">
+        <img class="close" src="./images/icon-schließen-weiß.svg" alt="image">
+      </div>
+    </div>
+    <div class="info-wrapper">
+      <div class="decor-wrapper">
+        <h4 class="modal-title">TUI KIDS CLUB -
+          <br>
+          Für die Kleinen das Größte
+        </h4>
+      </div>
+      <p>Entspannung für die Eltern Action für die Kinder! TUI KIDS CLUB Hotels bieten viele bunte Erlebnisse, Spaß und Action, besonders für die kleinen Gäste.</p>
+      <p>Ein perfekter All Inclusive Urlaub für die ganze Familie mit erstklassiger Kinderbetreuung nach altersgerechter Aufteilung durch TUI geschulte deutschsprachige Guides.</p>
+    </div>
+  </div>
+  <div class="modal-fader"></div>
   <script src="js/main.js"></script>
 </body>
 

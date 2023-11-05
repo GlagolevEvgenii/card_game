@@ -1,101 +1,123 @@
+const cards = document.querySelectorAll(".memory-card");
 const dateSelectElement = document.getElementById('date__select');
-const zoomImages = document.querySelectorAll('.zoom__img');
-let magnifiedImage = document.querySelector(".large__img");
-let originalImage;
-let originalImageWidth;
-let originalImageHeight;
-const zoomContainer = document.getElementById("zoom");
-const body = document.body;
-
-let scrollEnabled = true;
-
-function initializeImageDimensions() {
-  originalImage = document.querySelector(".zoom__img");
-  originalImageWidth = originalImage.width;
-  originalImageHeight = originalImage.height;
-}
-
-window.addEventListener('load', function() {
-  initializeImageDimensions();
-});
-
-function updateMagnifiedImage(mouseX, mouseY) {
-  const magnifiedImageStyle = magnifiedImage.style;
-  let xPercent = (mouseX / originalImageWidth) * 100;
-  let yPercent = (mouseY / originalImageHeight) * 100;
-
-  if (mouseX > 0.01 * originalImageWidth) {
-    xPercent += 0.15 * xPercent;
-  }
-
-  if (mouseY >= 0.01 * originalImageHeight) {
-    yPercent += 0.15 * yPercent;
-  }
-
-  magnifiedImageStyle.backgroundPositionX = xPercent - 9 + "%";
-  magnifiedImageStyle.backgroundPositionY = yPercent - 9 + "%";
-  magnifiedImageStyle.left = mouseX - 69 + "px";
-  magnifiedImageStyle.top = mouseY - 69 + "px";
-  magnifiedImageStyle.opacity = 1;
-}
-
-function hideMagnifiedImage() {
-  const magnifiedImageStyle = magnifiedImage.style;
-  magnifiedImageStyle.opacity = 0;
-}
+let hasFlippedCard = false;
+let lockBoard = false;
+let firstCard, secondCard;
+let remainingPairs = cards.length / 2;
 
 dateSelectElement.addEventListener('change', function() {
   const selectedDate = dateSelectElement.value;
 
-  zoomImages.forEach((image) => {
-    if (image.getAttribute('data-id') === selectedDate) {
-      const zoomUrl = image.getAttribute('src').split("\\")
-      image.style.display = 'block';
-      magnifiedImage.style.background = `url(images/${zoomUrl[zoomUrl.length-1]}) no-repeat #ffffff`
-    } else {
-      image.style.display = 'none';
+  cards.forEach((card, index) => {
+    const frontFace = card.querySelector('.front-face');
+    const groupName = card.getAttribute('data-name');
+    const suffix = `-${(index + 1).toString().padStart(2, '0')}`;
+    if (groupName && selectedDate) {
+      const suffix = groupName;
+      frontFace.src = `./images/${selectedDate}-${suffix}.png`;
     }
   });
 });
 
-zoomContainer.addEventListener("mousemove", function (e) {
-  if (!scrollEnabled) {
-    e.preventDefault();
+function flipCard() {
+  if (lockBoard) return;
+  if (this === firstCard) return;
+
+  this.classList.add("flip");
+
+  if (!hasFlippedCard) {
+    hasFlippedCard = true;
+    firstCard = this;
+    return;
   }
 
-  const mouseX = e.pageX - this.offsetLeft;
-  const mouseY = e.pageY - this.offsetTop;
-  updateMagnifiedImage(mouseX, mouseY);
-}, false);
+  secondCard = this;
+  lockBoard = true;
 
-zoomContainer.addEventListener("touchmove", function (e) {
-  if (!scrollEnabled) {
-    e.preventDefault();
+  checkForMatch();
+}
+
+function checkForMatch() {
+  let isMatch = firstCard.dataset.name === secondCard.dataset.name;
+  isMatch ? disableCards() : unflipCards();
+}
+
+function disableCards() {
+  firstCard.removeEventListener("click", flipCard);
+  secondCard.removeEventListener("click", flipCard);
+
+  remainingPairs--;
+
+  if (remainingPairs === 0) {
+    setTimeout(() => {
+      document.querySelector(".modal-fader").className += " active";
+      document.querySelector(".modal-finish").className += " active";
+    }, 500);
+  }
+  resetBoard();
+}
+
+function unflipCards() {
+  setTimeout(() => {
+    firstCard.classList.remove("flip");
+    secondCard.classList.remove("flip");
+
+    resetBoard();
+  }, 1500);
+}
+
+function resetBoard() {
+  hasFlippedCard = false;
+  lockBoard = false;
+  firstCard = null;
+  secondCard = null;
+}
+
+(function shuffle() {
+  cards.forEach(card => {
+    let ramdomPos = Math.floor(Math.random() * 6);
+    card.style.order = ramdomPos;
+  });
+})();
+
+cards.forEach(card => card.addEventListener("click", flipCard));
+
+
+function showModalWindow (buttonEl) {
+  let modalTarget = "#" + buttonEl.getAttribute("data-target");
+
+  document.querySelector(".modal-fader").className += " active";
+  document.querySelector(modalTarget).className += " active";
+}
+
+function hideAllModalWindows () {
+  let modalFader = document.querySelector(".modal-fader");
+  let modalWindows = document.querySelectorAll(".modal-window");
+
+  if(modalFader.className.indexOf("active") !== -1) {
+    modalFader.className = modalFader.className.replace("active", "");
   }
 
-  const touch = e.touches[0];
-  const mouseX = touch.clientX - this.offsetLeft;
-  const mouseY = touch.clientY - this.offsetTop;
-  updateMagnifiedImage(mouseX, mouseY);
-}, false);
-
-zoomContainer.addEventListener("mouseout", function () {
-  hideMagnifiedImage();
-}, false);
-
-zoomContainer.addEventListener("touchend", function () {
-  hideMagnifiedImage();
-}, false);
-
-function disableScroll() {
-  scrollEnabled = false;
-  body.style.overflow = "hidden";
+  modalWindows.forEach(function (modalWindow) {
+    if(modalWindow.className.indexOf("active") !== -1) {
+      modalWindow.className = modalWindow.className.replace("active", "");
+    }
+  });
 }
 
-function enableScroll() {
-  scrollEnabled = true;
-  body.style.overflow = "auto";
-}
-zoomContainer.addEventListener("touchstart", disableScroll, false);
+document.querySelectorAll(".open-modal").forEach(function (trigger) {
+  trigger.addEventListener("click", function () {
+    hideAllModalWindows();
+    showModalWindow(this);
+  });
+});
 
-zoomContainer.addEventListener("touchend", enableScroll, false);
+document.querySelectorAll(".modal-hide").forEach(function (closeBtn) {
+  closeBtn.addEventListener("click", function () {
+    hideAllModalWindows();
+  });
+});
+
+document.querySelector(".modal-fader").addEventListener("click", function () {
+  hideAllModalWindows();
+});
