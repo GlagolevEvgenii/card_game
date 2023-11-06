@@ -79,6 +79,9 @@ h4{
 .front-face {
   transform: rotateY(180deg);
 }
+.text{
+  color: #092A5E;
+}
 
 
 
@@ -167,11 +170,25 @@ h4{
 }
 .decor-wrapper{
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
+  width: 100%;
   justify-content: space-between;
   background: url("../images/snowflakes-background.jpg") center no-repeat;
   margin-bottom: 10px;
-  padding: 15px 0 10px;
+  padding: 40px 0 10px;
+}
+.decor-img{
+  position: relative;
+  max-width: 60px;
+  width: 100%;
+}
+.kids{
+  width: 100%;
+}
+.hat-decor{
+  position: absolute;
+  top: -12px;
+  left: -19px;
 }
 .image-wrapper {
   position: relative;
@@ -204,7 +221,6 @@ h4{
   padding-top: 10px;
 }
 .info-wrapper{
-  max-width: 297px;
   width: 100%;
   padding: 0 10px 35px;
 }
