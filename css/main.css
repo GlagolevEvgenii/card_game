@@ -109,10 +109,8 @@ h4{
   bottom: 0;
   width: 100%;
   z-index: 99998;
-  background-color: rgba(232, 232, 232, 0);
-  backdrop-filter: blur(9px);
-  filter: brightness(115%);
-  opacity: 0.9;
+  background-color: rgb(255 255 255 / 0.3);
+  backdrop-filter: blur(10px);
 }
 .modal-button{
   padding: 12px 16px;
